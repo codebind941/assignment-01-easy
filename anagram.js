@@ -5,39 +5,18 @@
 */
 
 function isAnagram(str1, str2) {
-      // To rule out any issues because of casing, converting both of them in lower-case.
-  // e.g. 'b' should be equal to 'B.
+  // Step 1: Convert both strings to lowercase to ignore case sensitivity
   str1 = str1.toLowerCase();
   str2 = str2.toLowerCase();
 
-  // Let's check if their length is equal, if NOT they will not be an Anagram.
-  if (str1.length == str2.length) {
-    // Length is equal.
+  // Step 2: Split each string into an array of characters, sort them alphabetically, and join them back into a string
+  const sortedStr1 = str1.split('').sort().join('');
+  const sortedStr2 = str2.split('').sort().join('');
 
-    // Now, let's check if all the characters in str1 are present in str2;
-    // That will obviously confirm if they are Anagram or not.
-    for (let i = 0; i < str1.length; i++) {
-      
-      // Checking on str2 has this char: str1[i]
-      if (str2.includes(str1[i])) {
-        // Yes? Continue to check the next char;
-        continue;
-      } else {
-        // No? Obviosuly they are NOT an Anagram.
-        return false;
-      }
-    }
-    // Complete 'for' loop has run, that means all the chars in str1 & str2 match;
-    // Hence, they are an Anagram.
-    return true;
-
-  } else {
-    // Length is NOT equal.
-    return false;
-  }
+  // Step 3: Check if the sorted strings are the same
+  return sortedStr1 === sortedStr2;
 }
 
-
- isAnagram("node", "done")
+isAnagram("done", "node")
 
 module.exports = isAnagram;

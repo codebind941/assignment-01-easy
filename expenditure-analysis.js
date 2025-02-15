@@ -13,43 +13,59 @@
   Output - [{ category: 'Food', totalSpent: 10 }] // Can have multiple categories, only one example is mentioned here
 */
 
-function calculateTotalSpentByCategory(transactions){
-	let categoryFound;
-	let output = []; // This will be the final output.
-	
-	// "transactions" is a list of objects, each object having these components: { itemName, category, price, timestamp };
-	// I need to collect "category" & "price" of each object.
-	indexes1 = transactions.length;
-	// Iterating over "transactions" array using indexes:
-	for (let i = 0; i < indexes1; i++) {
-	  // For each object:
-	  // category -> transactions[i]["category"]
-	  // price -> transactions[i]["price"]
-  
-	  // I need to see if this "category" already exists in "output";
-	  // To check in "output", I need to iterate over it.
-	  categoryFound = false;
-	  indexes2 = output.length;
-	  for (let j = 0; j < indexes2; j++) {
-		if (transactions[i]["category"] == output[j]["category"]) {
-		  // "category" already exists in "output";
-		  // I need to update the "price" to sum of existing & new.
-		  output[j]["totalSpent"] = output[j]["totalSpent"] + transactions[i]["price"];
-		  categoryFound = true;
-		  break;
-		}
-	  }
-	  
-	  if (categoryFound == false) {
-		// "category" does NOT exist in "output";
-		// Push this new object for new category found.
-		output.push({
-		  category: transactions[i]["category"],
-		  totalSpent: transactions[i]["price"]
-		})
-	  }
-	}
-	return output;
-  }
+function calculateTotalSpentByCategory(transactions) {
+    // Step 1: Create an empty object to store total spent by category
+    const categoryTotals = {};
+	console.log("Initial categoryTotals:", categoryTotals);
+
+    // Step 2: Loop through each transaction
+    for (let i = 0; i < transactions.length; i++) {
+        const transaction = transactions[i];
+        console.log("\nCurrent transaction:", transaction);
+
+        // Step 3: Get the category and price from the current transaction
+        const category = transaction.category;
+        const price = transaction.price;
+        console.log("Category:", category, "| Price:", price);
+
+        // Step 4: Check if this category is already in the object
+        if (categoryTotals[category]) {
+            // If it exists, add the price to the existing total
+            categoryTotals[category] += price;
+			console.log(`Updated total for ${category}:`, categoryTotals[category]);
+
+        } else {
+            // If it doesn't exist, create a new entry with the current price
+            categoryTotals[category] = price;
+			console.log(`New category added - ${category}:`, categoryTotals[category]);
+
+        }
+    }
+    console.log("\nFinal categoryTotals object:", categoryTotals);
+
+    // Step 5: Convert the categoryTotals object into an array of objects
+    const result = [];
+    for (let category in categoryTotals) {
+        result.push({
+            category: category,
+            totalSpent: categoryTotals[category]
+        });
+    }
+	console.log("\nFinal Result Array:", result);
+
+
+    return result;
+}
+
+const transactions = [
+	{ id: 1, price: 10, category: 'Food' },
+    { id: 2, price: 5, category: 'Food' },
+    { id: 3, price: 20, category: 'Clothing' },
+    { id: 4, price: 15, category: 'Food' }
+];
+
+calculateTotalSpentByCategory(transactions);
+
+
   
   module.exports = calculateTotalSpentByCategory;

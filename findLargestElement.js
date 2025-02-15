@@ -5,24 +5,38 @@
   - Output: 9
 */
 
+
 function findLargestElement(numbers) {
     // Check if the array is empty
-    if (numbers.length === 0) {
-        return null; // Return null for an empty array
-    }
+   
+        
 
-    // Initialize the largest number with the first element
-    let largest = numbers[0];
-
-    // Iterate through the array
-    for (let i = 1; i < numbers.length; i++) {
-        // If current number is greater than the largest, update the largest
-        if (numbers[i] > largest) {
-            largest = numbers[i];
+        // Step 1: Assume the first element is the largest
+        let largest = numbers[0];
+        
+    
+        // Step 2: Loop through the array to check each element
+        for (let i = 1; i < numbers.length; i++) {
+        
+            // Step 3: If the current element is greater, update the largest
+            if (numbers[i] > largest) {
+                largest = numbers[i];
+                
+            }
         }
+    
+        // Step 4: Return the largest element found
+        return largest;
     }
-
-    return largest;
-}
+    
+    // Example usage:
+    const numbers = [3, 7, 2, 9, 1];
+    const result = findLargestElement(numbers);
+    console.log("Largest element:", result); // Output should be 9
+    
+          
+    
+    
+ 
 
 module.exports = findLargestElement;
